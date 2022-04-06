@@ -1,0 +1,12 @@
+body {
+    background-color: #f0f0f0;
+}
+
+#root {
+    display: flex;
+    justify-content: center;
+}
+
+.App {
+    width: 800px;
+}
