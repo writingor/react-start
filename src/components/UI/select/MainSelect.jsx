@@ -1,6 +1,6 @@
 import React from 'react';
 
-import classes from './MainSelect.module.css';
+// import classes from './MainSelect.module.css';
 
 const MainSelect = ({ options, defaultValue, value, onChange }) => {
 

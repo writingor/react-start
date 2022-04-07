@@ -1,0 +1,22 @@
+.MainLoader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.MainLoader__loader {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    border: 5px dashed #ebd573;
+    animation: rotate-loader 1200ms infinite linear;
+}
+
+@keyframes rotate-loader {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

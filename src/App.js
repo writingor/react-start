@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import MainButton from './components/UI/button/MainButton';
 import MainModal from './components/UI/modal/MainModal';
 import PostForm from './components/PostForm';
@@ -6,17 +6,36 @@ import PostList from './components/PostList';
 import PostFilter from './components/PostFilter';
 
 import './styles/App.css';
+import { usePosts } from './hooks/usePosts';
+import PostService from './API/PostService';
+import MainLoader from './components/UI/loader/MainLoader';
+import { useFetching } from './hooks/useFetching';
+import { getPagesArray, getPagesCount } from './utils/pages';
 
 
 function App() {
 
-  const [posts, setPosts] = useState([
-    { id: 1, title: 'JavaScript', body: 'This is a lang...' },
-    { id: 2, title: 'qavasdfScript', body: 'This is a ddddddddddlang...' },
-    { id: 3, title: 'JavfsdddddddddddddddaScript', body: 'T1111111his is a lang...' },
-  ]);
-
+  const [posts, setPosts] = useState([]);
   const [modal, setModal] = useState(false);
+  const [filter, setFilter] = useState({ sort: '', query: '' });
+  const searchedAndSortedPosts = usePosts(posts, filter.sort, filter.query);
+  const [totalPages, setTotalPages] = useState(0);
+  const [limit, setLimit] = useState(10);
+  const [page, setPage] = useState(1);
+
+  let pagesArray = getPagesArray(totalPages);
+
+  const [fetchPosts, isPostsLoading, postError] = useFetching(async () => {
+    const response = await PostService.getAll(limit, page);
+    setPosts(response.data);
+    const totalCount = response.headers['x-total-count'];
+    setTotalPages(getPagesCount(totalCount, limit));
+  });
+
+  useEffect(() => {
+    fetchPosts();
+  }, [page]);
+
 
   const createPost = (newPost) => {
     setPosts([...posts, newPost]);
@@ -26,20 +45,6 @@ function App() {
   const removePost = (post) => {
     setPosts(posts.filter(p => p.id !== post.id));
   };
-
-  const [filter, setFilter] = useState({ sort: '', query: '' });
-
-  const sortedPosts = useMemo(() => {
-    if (filter.sort) {
-      return [...posts].sort((a, b) => a[filter.sort].localeCompare(b[filter.sort]));
-    } else {
-      return posts;
-    }
-  }, [filter.sort, posts]);
-
-  const searchedAndSortedPosts = useMemo(() => {
-    return sortedPosts.filter(post => post.title.toLocaleLowerCase().includes(filter.query.toLocaleLowerCase()));
-  }, [filter.query, sortedPosts]);
 
   return (
     <div className="App">
@@ -57,7 +62,18 @@ function App() {
         setFilter={setFilter}
       />
 
-      <PostList remove={removePost} posts={searchedAndSortedPosts} title={'Post list 1'} />
+      {postError &&
+        <div>Error: {postError}</div>
+      }
+
+      {isPostsLoading
+        ? <MainLoader></MainLoader>
+        : <PostList remove={removePost} posts={searchedAndSortedPosts} title={'Post list 1'} />
+      }
+
+      {pagesArray.map(p =>
+        <MainButton key={p} onClick={() => setPage(p)}>{p}</MainButton>
+      )}
 
     </div>
   );
