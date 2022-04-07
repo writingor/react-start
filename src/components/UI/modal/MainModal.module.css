@@ -1,0 +1,26 @@
+.MainModal {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    display: none;
+}
+
+.MainModal__content {
+    padding-top: 24px;
+    padding-bottom: 20px;
+    padding-left: 18px;
+    padding-right: 18px;
+    min-width: 280px;
+    box-sizing: border-box;
+    background-color: #ffffff;
+
+}
+
+.MainModal.active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

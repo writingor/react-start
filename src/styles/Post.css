@@ -1,7 +1,7 @@
 .post {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     padding-top: 24px;
     padding-bottom: 20px;
     padding-left: 18px;
@@ -13,4 +13,22 @@
 .post__title {
     font-size: 24px;
     margin-bottom: 16px;
+}
+
+.post-enter {
+    opacity: 0;
+}
+
+.post-enter-active {
+    opacity: 1;
+    transition: opacity 500ms ease-in;
+}
+
+.post-exit {
+    opacity: 1;
+}
+
+.post-exit-active {
+    opacity: 0;
+    transition: opacity 500ms ease-in;
 }

@@ -1,0 +1,1 @@
+for animation use react transition group (npm i react-transition-group --save)

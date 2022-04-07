@@ -4,7 +4,7 @@ import MainInput from './UI/input/MainInput';
 
 import '../styles/PostForm.css';
 
-const PostForm = ({create}) => {
+const PostForm = ({ create }) => {
 
     const [post, setPost] = useState({ title: '', body: '' });
 
@@ -13,8 +13,12 @@ const PostForm = ({create}) => {
         const newPost = {
             ...post, id: Date.now()
         };
-        create(newPost);
-        setPost({ title: '', body: '' });
+        if (post.title.length > 0 && post.body.length > 0) {
+            create(newPost);
+            setPost({ title: '', body: '' });
+        } else {
+            alert('Post is emtpy.');
+        }
     }
 
     return (
