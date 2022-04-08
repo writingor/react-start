@@ -1,0 +1,25 @@
+.MainPagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.MainPagination__page {
+    padding-top: 11px;
+    padding-bottom: 10px;
+    padding-left: 14px;
+    padding-right: 14px;
+    background-color: #ffffff;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.MainPagination__page_current {
+    padding-top: 11px;
+    padding-bottom: 10px;
+    padding-left: 14px;
+    padding-right: 14px;
+    background-color: #f8d870;
+    font-size: 16px;
+    cursor: pointer;
+}

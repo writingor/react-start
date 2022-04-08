@@ -1,0 +1,27 @@
+
+.MainNavbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 70px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    background-color: #293342;
+}
+
+.MainNavbar__link {
+    padding: 26px 20px 24px;
+    font-size: 20px;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.MainNavbar__link:hover {
+    background-color: #2e3f58;
+}
+
+.MainNavbar__link:active {
+    background-color: #f8d870;
+    color: #000000;
+}
